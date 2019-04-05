@@ -1,0 +1,280 @@
+
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Calculadora de Cortes</title>
+
+        <!-- Bootstrap CSS -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <!-- jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <!-- Bootstrap JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="calculadora.js" type="text/javascript"></script>
+    </head>
+    <body class="bg-black">
+        
+        <div class="container ">
+            
+            <h1 class="text-center">
+<p class=" btn-lg btn-warning">calculadora de Cortes</p>
+
+            </h1>
+        </div>
+        
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#ddlCorte").empty();
+                $("#ddlCorte").append(new Option("Tipo de Corte Predefinido", "0", true));
+                $("#ddlCorte").append(new Option("Carta", "21.5X28"));
+                $("#ddlCorte").append(new Option("Doble Carta/Tabloide", "43X28"));
+                $("#ddlCorte").append(new Option("Tabloide Rebasado", "45.7X30.5"));
+                $("#ddlCorte").append(new Option("Tarjetas Presentación # 5", "5X9"));
+                $("#ddlCorte").append(new Option("Tarjetas Presentación # 6", "6X9.8"));
+                $("#ddlCorte").append(new Option("Tarjetas Bibliográficas 3 X 5", "7.62X12.7"));
+                $("#ddlCorte").append(new Option("Tarjetas Bibliográficas 6 X 4", "10.6X15.24"));
+                $("#ddlCorte").append(new Option("Tarjetas Bibliográficas 5 X 8", "12.7X20.3"));
+                $("#ddlCorte").append(new Option("Oficio", "21.5X34"));
+                $("#ddlCorte").append(new Option("Doble oficio", "43X34"));
+                $("#ddlCorte").append(new Option("1/2 Oficio", "17X21.5"));
+                $("#ddlCorte").append(new Option("Monarca (monarch)", "18.5X27"));
+                $("#ddlCorte").append(new Option("Notarial", "34.7X23.5"));
+                $("#ddlCorte").append(new Option("Ministro", "29X38"));
+                $("#ddlCorte").append(new Option("A-2 (Blocks)", "42X59.4"));
+                $("#ddlCorte").append(new Option("A-3", "30X42"));
+                $("#ddlCorte").append(new Option("A-4", "21X29.7"));
+                $("#ddlCorte").append(new Option("Legal", "21.6X35.6"));
+        
+                $("#ddlCorte").change(function () {
+                    var valoresCorte = $("#ddlCorte option:selected").val();
+                    if (valoresCorte != "0") {
+                        var valoresArre = valoresCorte.split("X");
+                        $("#corte_ancho").val(valoresArre[0]);
+                        $("#corte_largo").val(valoresArre[1]);
+                    } else {
+                        $("#corte_ancho").val("");
+                        $("#corte_largo").val("");
+                    }
+                });
+                $('button[data-target="#sendMail"]').hide();
+            });
+        </script>
+        <div class="container" id="calculadora_cortes">
+            <div class="row">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <form class="form-horizontal" role="form" id="form_calc" novalidate="novalidate">
+                            <strong><span>CARTULINA STARDREAM 2.0 200G 72X102CM</span></strong>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h4 class="text-center">Tamaño del papel extendido</h4>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4" for="papel_ancho">Ancho:</label>
+                                        <div class="col-sm-7">
+                                            <div class="input-group" id="grupo_papel_ancho">
+                                                <input class="form-control" id="papel_ancho" placeholder="Ancho" aria-describedby="basic-addon2" maxlength="5" tabindex="1" required="" value="">
+                                                <span class="input-group-addon" id="basic-addon2">cm</span>
+                                            </div>
+                                        </div>
+                                        <label class="control-label col-sm-4" for="papel_largo">Largo:</label>
+                                        <div class="col-sm-7">
+                                            <div class="input-group">
+                                                <input class="form-control" id="papel_largo" placeholder="Largo" aria-describedby="basic-addon2" maxlength="5" tabindex="2" required="" value="">
+                                                <span class="input-group-addon" id="basic-addon2">cm</span>
+                                            </div>
+                                        </div>
+                                        <label class="control-label col-sm-4" for="papel_gramaje" style="display:none;">Gramaje:</label>
+                                        <div class="col-sm-7" style="display:none;">
+                                            <input class="form-control" id="papel_gramaje" maxlength="3" placeholder="Gramaje">
+                                        </div>
+                                    </div>
+                                    <h4 class="text-center">Tamaño de corte</h4>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4" for="corte_ancho">Medidas:</label>
+                                        <div class="col-sm-7">
+                                            <div class="input-group">
+                                        <select id="ddlCorte" style="width: 210px !important;"><option value="0" selected="">Tipo de Corte Predefinido</option><option value="21.5X28">Carta</option><option value="43X28">Doble Carta/Tabloide</option><option value="45.7X30.5">Tabloide Rebasado</option><option value="5X9">Tarjetas Presentación # 5</option><option value="6X9.8">Tarjetas Presentación # 6</option><option value="7.62X12.7">Tarjetas Bibliográficas 3 X 5</option><option value="10.6X15.24">Tarjetas Bibliográficas 6 X 4</option><option value="12.7X20.3">Tarjetas Bibliográficas 5 X 8</option><option value="21.5X34">Oficio</option><option value="43X34">Doble oficio</option><option value="17X21.5">1/2 Oficio</option><option value="18.5X27">Monarca (monarch)</option><option value="34.7X23.5">Notarial</option><option value="29X38">Ministro</option><option value="42X59.4">A-2 (Blocks)</option><option value="30X42">A-3</option><option value="21X29.7">A-4</option><option value="21.6X35.6">Legal</option></select>
+                                            </div>
+                                        </div>
+        
+                                        <label class="control-label col-sm-4" for="corte_ancho">Ancho:</label>
+                                        <div class="col-sm-7">
+                                            <div class="input-group">
+                                                <input class="form-control" id="corte_ancho" placeholder="Ancho" aria-describedby="basic-addon2" maxlength="5" tabindex="3" required="">
+                                                <span class="input-group-addon" id="basic-addon2">cm</span>
+                                            </div>
+                                        </div>
+                                        <label class="control-label col-sm-4" for="corte_largo">Largo:</label>
+                                        <div class="col-sm-7">
+                                            <div class="input-group">
+                                                <input class="form-control" id="corte_largo" placeholder="Largo" aria-describedby="basic-addon2" maxlength="5" tabindex="4" required="">
+                                                <span class="input-group-addon" id="basic-addon2">cm</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h4 class="text-center" style="display:none;">Número de cortes deseado</h4>
+                                    <div class="form-group" style="display:none;">
+                                        <label class="control-label col-sm-4" for="numero_cortes">Cortes:</label>
+                                        <div class="col-sm-7">
+                                            <input class="form-control" id="cortes_deseados" placeholder="No. de cortes">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <h4 class="text-center">Área de corte</h4>
+                                    <div id="dibujo" class="text-center">
+                                        <canvas height="250" width="250" id="micanvas">
+                                            Su navegador no soporta en elemento CANVAS
+                                        </canvas>
+                                    </div>
+                                    <span class="label label-danger"><span id="area_inutilizada">0</span>% sin utilizar</span>
+                                    <span class="label label-success"><span id="area_utilizada">0</span>% utilizado</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <fieldset style="width: 50%;">
+                                        <legend style="width:unset; font-weight:bold; font-size:14px;">Máximo rendimiento de corte</legend>
+                                        <button type="submit" class="btn btn-success" id="maximo">
+                                            <span class="glyphicon glyphicon-th"></span> Máximo
+                                        </button>
+                                        <button type="button" class="btn btn-success" id="orientacion_h">
+                                            Horizontal
+                                        </button>
+                                        <button type="button" class="btn btn-success" id="orientacion_v">
+                                            Vertical
+                                        </button>
+                                        <button type="submit" class="btn btn-success" id="reset">
+                                            <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Reset
+                                        </button>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="" id="result_panel" style="">
+                            <hr>
+                            <div class="col-sm-12 text-center">
+                                <h4 class=""><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Reporte</h4>
+                            </div>
+                            <div class="form-horizontal">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label class="control-label col-sm-9" for="papel_ancho">Cortes por pliego:</label>
+                                        <div class="col-sm-3">
+                                            <span class="label-result" id="cortes_pliego">0</span>
+                                        </div>
+                                        <label class="control-label col-sm-9" for="cortes_utilizables">No. utilizables:</label>
+                                        <div class="col-sm-3">
+                                            <span class="label-result" id="cortes_utilizables">0</span>
+                                        </div>
+                                        <label class="control-label col-sm-9" for="numero_cortes_horizontal">No. horizontales:</label>
+                                        <div class="col-sm-3">
+                                            <span class="label-result" id="numero_cortes_horizontal">0</span>
+                                        </div>
+                                        <label class="control-label col-sm-9" for="numero_cortes_vertical">No. verticales:</label>
+                                        <div class="col-sm-3">
+                                            <span class="label-result" id="numero_cortes_vertical">0</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="control-label col-sm-9" for="pliegos">No. de pliegos:</label>
+                                        <div class="col-sm-3">
+                                            <span class="label-result" id="pliegos">0</span>
+                                        </div>
+                                        <label class="control-label col-sm-9" for="numero_cortes">No. de cortes totales:</label>
+                                        <div class="col-sm-3">
+                                            <span class="label-result" id="numero_cortes">0</span>
+                                        </div>
+                                        <label class="control-label col-sm-6" for="peso">Peso final:</label>
+                                        <div class="col-sm-6" style="text-align: right;">
+                                            <span class="label-result" id="peso">0</span><span class="label-result"> Kg</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bs-example">
+                                <div class="tab-content">
+                                    <div id="sectionA" class="tab-pane fade in active">
+                                        <div class="col-sm-12 text-right">
+                                            <button type="submit" class="btn btn-success" id="imprimir">
+                                                <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir
+                                            </button>
+                                            <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#sendMail" style="display: none;">
+                                                <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Enviar por correo
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div id="sendMail" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                    <h4 class="modal-title" id="myModalLabel">Enviar resultados por correo</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form class="form-horizontal" role="form" novalidate="novalidate">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="col-sm-12" style="display: none;" id="alert_success">
+                                                                    <div class="alert alert-success">
+                                                                        <a href="http://www.pochteca.com.mx/calculadora/calculadora.html#" class="close" data-dismiss="alert">×</a>
+                                                                        <strong>Correo enviado!</strong> en breve le llegara un correo al Email proporcionado.
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-sm-2" for="nombre">Nombre:</label>
+                                                                    <div class="col-sm-9">
+                                                                        <input class="form-control" id="nombre" placeholder="Nombre">
+                                                                    </div>
+                                                                    <label class="control-label col-sm-2" for="empresa">Empresa:</label>
+                                                                    <div class="col-sm-9">
+                                                                        <input class="form-control" id="empresa" placeholder="Empresa">
+                                                                    </div>
+                                                                    <label class="control-label col-sm-2" for="telefono">Télefono:</label>
+                                                                    <div class="col-sm-9">
+                                                                        <input class="form-control" id="telefono" placeholder="Télefono">
+                                                                    </div>
+                                                                    <label class="control-label col-sm-2" for="email">E-Mail:</label>
+                                                                    <div class="col-sm-9">
+                                                                        <input type="email" class="form-control" id="email" placeholder="E-Mail" data-error="Correo electronico no valido">
+                                                                    </div>
+                                                                    <label class="control-label col-sm-2" for="comentario">Comentario:</label>
+                                                                    <div class="col-sm-9">
+                                                                        <textarea class="form-control" rows="5" id="comentario" placeholder="Comentario"></textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-11 text-right">
+                                                                <button id="enviar_correo" type="submit" class="btn btn-success" data-loading-text="Enviando...">
+                                                                    <span class="glyphicon glyphicon-send" aria-hidden="true"></span> Enviar
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+    </body>
+</html>
